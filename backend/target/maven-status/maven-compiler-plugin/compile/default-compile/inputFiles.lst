@@ -1,0 +1,10 @@
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/service/JobApplicationService.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/controller/JobApplicationController.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/config/CorsConfig.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/service/JobApplicationServiceImpl.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/dto/JobApplicationResponseDTO.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/model/JobApplication.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/dto/JobApplicationRequestDTO.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/JobPulseApplication.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/DataInitializer.java
+/home/alyssa/JobPulse/src/main/java/com/jobpulse/repository/JobApplicationRepository.java

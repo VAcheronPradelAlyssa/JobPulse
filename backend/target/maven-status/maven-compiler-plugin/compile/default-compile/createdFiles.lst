@@ -1,0 +1,13 @@
+com/jobpulse/model/JobApplication$JobApplicationBuilder.class
+com/jobpulse/config/CorsConfig.class
+com/jobpulse/model/JobApplication.class
+com/jobpulse/repository/JobApplicationRepository.class
+com/jobpulse/service/JobApplicationService.class
+com/jobpulse/DataInitializer.class
+com/jobpulse/controller/JobApplicationController.class
+com/jobpulse/config/CorsConfig$1.class
+com/jobpulse/dto/JobApplicationResponseDTO.class
+com/jobpulse/service/JobApplicationServiceImpl.class
+com/jobpulse/JobPulseApplication.class
+com/jobpulse/dto/JobApplicationRequestDTO.class
+com/jobpulse/model/JobApplication$Status.class
