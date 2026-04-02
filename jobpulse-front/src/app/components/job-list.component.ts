@@ -1,0 +1,81 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Job } from '../model/job.model';
+import { JobApplicationService } from '../service/job-application.service';
+
+@Component({
+  selector: 'app-job-list',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './job-list.component.html',
+  styleUrls: ['./job-list.component.scss']
+})
+export class JobListComponent implements OnInit {
+
+  jobs: Job[] = [];
+  statuses = ['APPLIED', 'INTERVIEW', 'REJECTED', 'ACCEPTED'];
+  isLoading = false;
+  errorMessage = '';
+
+  constructor(private jobService: JobApplicationService) { }
+
+  ngOnInit(): void {
+    this.loadJobs();
+  }
+
+  /**
+   * Load all job applications from API
+   */
+  loadJobs(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.jobService.getJobs().subscribe({
+      next: (data) => {
+        this.jobs = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to load job applications';
+        console.error(err);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  /**
+   * Delete a job application
+   */
+  deleteJob(id: number | undefined): void {
+    if (!id) return;
+
+    if (confirm('Are you sure you want to delete this application?')) {
+      this.jobService.deleteJob(id).subscribe({
+        next: () => {
+          this.jobs = this.jobs.filter(job => job.id !== id);
+        },
+        error: (err) => {
+          this.errorMessage = 'Failed to delete job application';
+          console.error(err);
+        }
+      });
+    }
+  }
+
+  /**
+   * Update job status
+   */
+  updateStatus(job: Job, newStatus: string): void {
+    if (!job.id) return;
+
+    this.jobService.updateStatus(job.id, newStatus).subscribe({
+      next: (updatedJob) => {
+        job.status = updatedJob.status;
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to update job status';
+        console.error(err);
+      }
+    });
+  }
+}
