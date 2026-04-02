@@ -44,6 +44,13 @@ export class JobListComponent implements OnInit {
   }
 
   /**
+   * Add a new job to the list immediately
+   */
+  addJob(job: Job): void {
+    this.jobs.unshift(job);
+  }
+
+  /**
    * Delete a job application
    */
   deleteJob(id: number | undefined): void {

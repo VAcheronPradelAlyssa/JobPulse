@@ -16,13 +16,13 @@ export class App {
   @ViewChild(JobListComponent) jobListComponent!: JobListComponent;
 
   /**
-   * Handle job created event and refresh the list
+   * Handle job created event and add job to list immediately
    */
   onJobCreated(job: Job): void {
     console.log('New job created:', job);
-    // Reload the job list to show the new job
+    // Add the job directly to the list without API call for instant display
     if (this.jobListComponent) {
-      this.jobListComponent.loadJobs();
+      this.jobListComponent.addJob(job);
     }
   }
 }
