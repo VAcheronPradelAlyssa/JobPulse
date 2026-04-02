@@ -1,6 +1,12 @@
 <div class="job-list-container">
   <h2>Job Applications</h2>
 
+  <!-- Filter Component -->
+  <app-job-filter 
+    (filterChanged)="applyFilter($event)"
+    [isActionInProgress]="actionInProgress.size > 0"
+  ></app-job-filter>
+
   <!-- Loading State -->
   <div *ngIf="isLoading" class="loading">
     Loading job applications...
@@ -17,7 +23,7 @@
   </div>
 
   <!-- Jobs Table -->
-  <div *ngIf="!isLoading && jobs.length > 0" class="jobs-table">
+  <div *ngIf="!isLoading && filteredJobs.length > 0" class="jobs-table">
     <table>
       <thead>
         <tr>
@@ -29,7 +35,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let job of jobs" [class.disabled]="isActionInProgress(job.id)">
+        <tr *ngFor="let job of filteredJobs" [class.disabled]="isActionInProgress(job.id)">
           <td>{{ job.company }}</td>
           <td>{{ job.position }}</td>
           <td>
@@ -58,6 +64,11 @@
   </div>
 
   <!-- Empty State -->
+  <div *ngIf="!isLoading && filteredJobs.length === 0 && jobs.length > 0" class="empty-state">
+    <p>No job applications found for the selected filter</p>
+  </div>
+
+  <!-- No Data State -->
   <div *ngIf="!isLoading && jobs.length === 0" class="empty-state">
     <p>No job applications found</p>
   </div>

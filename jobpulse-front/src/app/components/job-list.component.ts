@@ -3,18 +3,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Job } from '../model/job.model';
 import { JobApplicationService } from '../service/job-application.service';
+import { JobFilterComponent } from './job-filter.component';
 
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, JobFilterComponent],
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent implements OnInit {
 
   jobs: Job[] = [];
+  filteredJobs: Job[] = [];
   statuses = ['APPLIED', 'INTERVIEW', 'REJECTED', 'ACCEPTED'];
+  selectedFilter = 'ALL';
   isLoading = false;
   errorMessage = '';
   successMessage = '';
@@ -36,6 +39,7 @@ export class JobListComponent implements OnInit {
     this.jobService.getJobs().subscribe({
       next: (data) => {
         this.jobs = data;
+        this.applyFilter('ALL');
         this.isLoading = false;
       },
       error: (err) => {
@@ -51,6 +55,20 @@ export class JobListComponent implements OnInit {
    */
   addJob(job: Job): void {
     this.jobs.unshift(job);
+    this.applyFilter(this.selectedFilter);
+  }
+
+  /**
+   * Apply filter to jobs list
+   */
+  applyFilter(status: string): void {
+    this.selectedFilter = status;
+    
+    if (status === 'ALL') {
+      this.filteredJobs = [...this.jobs];
+    } else {
+      this.filteredJobs = this.jobs.filter(job => job.status === status);
+    }
   }
 
   /**
@@ -67,6 +85,7 @@ export class JobListComponent implements OnInit {
       this.jobService.deleteJob(id).subscribe({
         next: () => {
           this.jobs = this.jobs.filter(job => job.id !== id);
+          this.applyFilter(this.selectedFilter);
           this.successMessage = 'Job application deleted successfully';
           this.actionInProgress.delete(id);
           // Clear success message after 3 seconds
@@ -96,6 +115,7 @@ export class JobListComponent implements OnInit {
     this.jobService.updateStatus(job.id, newStatus).subscribe({
       next: (updatedJob) => {
         job.status = updatedJob.status;
+        this.applyFilter(this.selectedFilter);
         this.successMessage = `Status updated to ${newStatus}`;
         this.actionInProgress.delete(job.id!);
         // Clear success message after 3 seconds
