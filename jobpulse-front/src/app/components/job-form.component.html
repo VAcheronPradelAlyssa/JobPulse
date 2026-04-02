@@ -1,0 +1,95 @@
+<div class="job-form-container">
+  <h3>Add New Job Application</h3>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="form">
+
+    <!-- Company Field -->
+    <div class="form-group">
+      <label for="company">Company *</label>
+      <input
+        id="company"
+        type="text"
+        formControlName="company"
+        placeholder="Enter company name"
+        class="form-input"
+        [class.error]="getControl('company')?.invalid && getControl('company')?.touched"
+      />
+      <div *ngIf="getControl('company')?.invalid && getControl('company')?.touched" class="error-text">
+        <span *ngIf="getControl('company')?.errors?.['required']">Company is required</span>
+        <span *ngIf="getControl('company')?.errors?.['minlength']">Company must be at least 2 characters</span>
+      </div>
+    </div>
+
+    <!-- Position Field -->
+    <div class="form-group">
+      <label for="position">Position *</label>
+      <input
+        id="position"
+        type="text"
+        formControlName="position"
+        placeholder="Enter job position"
+        class="form-input"
+        [class.error]="getControl('position')?.invalid && getControl('position')?.touched"
+      />
+      <div *ngIf="getControl('position')?.invalid && getControl('position')?.touched" class="error-text">
+        <span *ngIf="getControl('position')?.errors?.['required']">Position is required</span>
+        <span *ngIf="getControl('position')?.errors?.['minlength']">Position must be at least 2 characters</span>
+      </div>
+    </div>
+
+    <!-- Status Field -->
+    <div class="form-group">
+      <label for="status">Status *</label>
+      <select formControlName="status" id="status" class="form-input">
+        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+      </select>
+      <div *ngIf="getControl('status')?.invalid && getControl('status')?.touched" class="error-text">
+        Status is required
+      </div>
+    </div>
+
+    <!-- Applied Date Field -->
+    <div class="form-group">
+      <label for="appliedDate">Applied Date *</label>
+      <input
+        id="appliedDate"
+        type="date"
+        formControlName="appliedDate"
+        class="form-input"
+        [class.error]="getControl('appliedDate')?.invalid && getControl('appliedDate')?.touched"
+      />
+      <div *ngIf="getControl('appliedDate')?.invalid && getControl('appliedDate')?.touched" class="error-text">
+        Applied date is required
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="button-group">
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="jobForm.invalid || isLoading"
+      >
+        {{ isLoading ? 'Creating...' : 'Create Application' }}
+      </button>
+      <button
+        type="button"
+        class="reset-btn"
+        (click)="resetForm()"
+        [disabled]="isLoading"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

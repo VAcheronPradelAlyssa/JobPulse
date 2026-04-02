@@ -1,0 +1,13 @@
+<div class="filter-container">
+  <div class="filter-buttons">
+    <button
+      *ngFor="let status of statuses"
+      class="filter-btn"
+      [class.active]="selectedStatus === status"
+      (click)="selectFilter(status)"
+      [disabled]="isActionInProgress"
+    >
+      {{ status }}
+    </button>
+  </div>
+</div>
