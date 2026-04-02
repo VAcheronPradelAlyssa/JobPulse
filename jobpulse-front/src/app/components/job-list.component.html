@@ -6,6 +6,11 @@
     Loading job applications...
   </div>
 
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
   <!-- Error Message -->
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
@@ -24,17 +29,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let job of jobs">
+        <tr *ngFor="let job of jobs" [class.disabled]="isActionInProgress(job.id)">
           <td>{{ job.company }}</td>
           <td>{{ job.position }}</td>
           <td>
-            <select [(ngModel)]="job.status" (change)="updateStatus(job, job.status)" class="status-select">
+            <select 
+              [(ngModel)]="job.status" 
+              (change)="updateStatus(job, job.status)" 
+              class="status-select"
+              [disabled]="isActionInProgress(job.id)"
+            >
               <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
             </select>
           </td>
           <td>{{ job.appliedDate }}</td>
           <td class="actions">
-            <button class="delete-btn" (click)="deleteJob(job.id)">Delete</button>
+            <button 
+              class="delete-btn" 
+              (click)="deleteJob(job.id)"
+              [disabled]="isActionInProgress(job.id)"
+            >
+              {{ isActionInProgress(job.id) ? 'Deleting...' : 'Delete' }}
+            </button>
           </td>
         </tr>
       </tbody>
