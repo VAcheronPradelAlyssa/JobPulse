@@ -1,19 +1,23 @@
 .job-list-container {
-  padding: 20px;
-  max-width: 1200px;
+  padding: 30px 20px;
+  max-width: 1000px;
   margin: 0 auto;
 
   h2 {
-    color: #333;
-    margin-bottom: 20px;
+    color: #222;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
   }
 }
 
 .loading {
   text-align: center;
-  padding: 40px;
-  color: #666;
-  font-size: 16px;
+  padding: 60px 20px;
+  color: #888;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .error-message {
@@ -36,42 +40,46 @@
 
 .jobs-table {
   overflow-x: auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background-color: white;
 
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: white;
 
     thead {
-      background-color: #f8f9fa;
+      background-color: #f9fafb;
       tr th {
-        padding: 12px;
+        padding: 16px 14px;
         text-align: left;
-        font-weight: 600;
-        color: #333;
-        border-bottom: 2px solid #dee2e6;
+        font-weight: 700;
+        color: #374151;
+        border-bottom: 1px solid #e5e7eb;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
     }
 
     tbody {
       tr {
-        border-bottom: 1px solid #dee2e6;
+        border-bottom: 1px solid #f3f4f6;
         transition: background-color 0.2s, opacity 0.2s;
 
         &:hover {
-          background-color: #f8f9fa;
+          background-color: #f9fafb;
         }
 
         &.disabled {
-          opacity: 0.6;
-          background-color: #f5f5f5;
+          opacity: 0.5;
+          background-color: #fafafa;
         }
 
         td {
-          padding: 12px;
+          padding: 16px 14px;
           color: #555;
+          font-size: 14px;
         }
       }
     }
@@ -79,23 +87,25 @@
 }
 
 .status-select {
-  padding: 6px 8px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
   background-color: white;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 
   &:focus {
     outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
   }
 
   &:disabled {
-    background-color: #e9ecef;
+    background-color: #f5f5f5;
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: 0.5;
   }
 }
 
@@ -130,7 +140,8 @@
 
 .empty-state {
   text-align: center;
-  padding: 40px;
-  color: #999;
-  font-size: 16px;
+  padding: 60px 20px;
+  color: #9ca3af;
+  font-size: 15px;
+  font-weight: 500;
 }
